@@ -1,0 +1,17 @@
+name: Issue Closed
+on:
+  issues:
+    types: [closed]
+jobs:
+  issue-closed:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup go
+      uses: actions/setup-go@v3
+    - name: ➡️ Run action
+      env:
+        GITHUB_EVENT_PATH: ${{ github.event_path }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: |
+        go run main.go
